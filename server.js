@@ -5,16 +5,18 @@ const EldCtrl = require("./src/controllers/ELDCtrl");
 const app = express();
 app.set("json spaces", 4);
 
-app.get(
+const router = express.Router();
+router.get(
   "/diagnostic_service_state",
   EldCtrl.getDiagnosticServiceState
 );
+router.get("/esn", EldCtrl.getEsn);
+router.get("/gps", EldCtrl.getGps);
+router.get("/hours_of_service", EldCtrl.getHoursOfService);
+router.get("/odometer", EldCtrl.getOdometer);
+router.get("/vin", EldCtrl.getVin);
 
-app.get("/esn", EldCtrl.getEsn);
-app.get("/gps", EldCtrl.getGps);
-app.get("/hours_of_service", EldCtrl.getHoursOfService);
-app.get("/odometer", EldCtrl.getOdometer);
-app.get("/vin", EldCtrl.getOdometer);
+app.use("/api/eld", router);
 
 // Error handling
 app.use((err, req, res, next) => {

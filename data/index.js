@@ -38,7 +38,7 @@ const vin = {
   vin: "string"
 };
 
-export {
+module.exports = {
   diagnosticServiceState,
   esn,
   gps,

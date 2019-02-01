@@ -24,7 +24,7 @@ const getVin = (request, response) => {
   response.status(200).json(Data.vin);
 };
 
-export {
+module.exports = {
   getDiagnosticServiceState,
   getEsn,
   getGps,
