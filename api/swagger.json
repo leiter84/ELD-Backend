@@ -5,7 +5,7 @@
     "description": "Services exposed by TGW API",
     "version": "1.0.0"
   },
-  "host": "http://eld-backend.azurewebsites.net",
+  "host": "eld-backend.azurewebsites.net",
   "schemes": ["https"],
   "basePath": "/api/eld",
   "produces": ["application/json"],
