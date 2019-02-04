@@ -1,7 +1,9 @@
+const now = new Date();
+
 const diagnosticServiceState = {
   serviceState: "string",
   stateChangeReason: "string",
-  stateChangeTime: Date.now()
+  stateChangeTime: now.toISOString()
 };
 
 const esn = {
@@ -15,7 +17,7 @@ const gps = {
   speedMph: 3,
   heading: 4,
   accuracyFeet: 5,
-  timestamp: Date.now(),
+  timestamp: now.toISOString(),
   ignition: false
 };
 
@@ -31,7 +33,7 @@ const odometer = {
   miles: 1,
   sourceName: "string",
   sourceType: "Accumulator",
-  timestamp: Date.now()
+  timestamp: now.toISOString()
 };
 
 const vin = {

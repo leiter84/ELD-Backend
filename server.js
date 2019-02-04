@@ -1,9 +1,16 @@
 const express = require("express");
+const passport = require("passport");
+const AuthConfig = require("./src/config/authentication");
 const EldCtrl = require("./src/controllers/ELDCtrl");
 
 // Initialize Express server with predefined settings
 const app = express();
 app.set("json spaces", 4);
+
+// Passport Authentication Middleware
+passport.use(AuthConfig.strategy);
+app.use(passport.initialize());
+//app.use(passport.authenticate("digest", { session: false }));
 
 const router = express.Router();
 router.get(
