@@ -1,5 +1,7 @@
 const express = require("express");
 const passport = require("passport");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDoc = require("./api/swagger.json");
 const AuthConfig = require("./src/config/authentication");
 const EldCtrl = require("./src/controllers/ELDCtrl");
 
@@ -11,6 +13,9 @@ app.set("json spaces", 4);
 passport.use(AuthConfig.strategy);
 app.use(passport.initialize());
 //app.use(passport.authenticate("digest", { session: false }));
+
+// Swagger middleware
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 const router = express.Router();
 router.get(

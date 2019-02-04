@@ -1,0 +1,276 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ELD Backend API",
+    "description": "Services exposed by TGW API",
+    "version": "1.0.0"
+  },
+  "host": "http://eld-backend.azurewebsites.net/",
+  "schemes": ["https"],
+  "basePath": "/api/eld",
+  "produces": ["application/json"],
+  "paths": {
+    "/diagnostic_service_state": {
+      "get": {
+        "summary": "Diagnostic Service State",
+        "description": "This service provides the vehicle's diagnostic service state",
+        "responses": {
+          "200": {
+            "description": "Diagnostis Service State object",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DiagnosticServiceState"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/esn": {
+      "get": {
+        "summary": "ESN",
+        "description": "This service provides the mobile unit's Electronic Serial Number (ESN)",
+        "responses": {
+          "200": {
+            "description": "ESN object",
+            "schema": {
+              "$ref": "#/definitions/ESN"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/gps": {
+      "get": {
+        "summary": "GPS",
+        "description": "This service provider the vehicle's location, speed, heading and ignition state.",
+        "responses": {
+          "200": {
+            "description": "GPS object",
+            "schema": {
+              "$ref": "#/definitions/GPS"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/hours_of_service": {
+      "get": {
+        "summary": "Hours of Service",
+        "description": "This service provides GPS and diagnostic information",
+        "responses": {
+          "200": {
+            "description": "HoursOfService object",
+            "schema": {
+              "$ref": "#/definitions/HoursOfService"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/odometer": {
+      "get": {
+        "summary": "Odometer",
+        "description": "This service provides a JSON of odometer objects",
+        "responses": {
+          "200": {
+            "description": "Odometer object",
+            "schema": {
+              "$ref": "#/definitions/Odometer"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/vin": {
+      "get": {
+        "summary": "VIN",
+        "description": "This service provides the vehicle's identification number (VIN)",
+        "responses": {
+          "200": {
+            "description": "VIN Object",
+            "schema": {
+              "$ref": "#/definitions/VIN"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "DiagnosticServiceState": {
+      "properties": {
+        "serviceState": {
+          "type": "string",
+          "description": "The vehicle's current diagnostic service state"
+        },
+        "stateChangeReason": {
+          "type": "string",
+          "description": "The reason the vehicle last changed state"
+        },
+        "stateChangeTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the vehicle last changed state"
+        }
+      }
+    },
+    "ESN": {
+      "properties": {
+        "deviceId": {
+          "type": "string",
+          "description": "The mobile unit's serial number"
+        },
+        "productId": {
+          "type": "number",
+          "description": "The mobile unit's manufacture and type"
+        }
+      }
+    },
+    "GPS": {
+      "properties": {
+        "lat": {
+          "type": "number",
+          "description": "The latitude where the unit is located."
+        },
+        "lon": {
+          "type": "number",
+          "description": "The longitude where the unit is located."
+        },
+        "speedMph": {
+          "type": "number",
+          "description": "The vehicle's speed in miles per hour"
+        },
+        "heading": {
+          "type": "number",
+          "description": "The vehicle's current direction in degrees"
+        },
+        "accuracyFeet": {
+          "type": "number",
+          "description": "The accuracy of the reported latitude and longitude in feet"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "descriptoon": "The time at which the GPS position was recorded"
+        },
+        "ignition": {
+          "type": "boolean",
+          "description": "The current state of vehicle's ignition. The value is true when the engine is running and false when it is not"
+        }
+      }
+    },
+    "HoursOfService": {
+      "properties": {
+        "gps": {
+          "type": "object",
+          "description": "First name of the Uber user.",
+          "$ref": "#/definitions/GPS"
+        },
+        "diagnosticServiceState": {
+          "type": "string",
+          "enum": [
+            "InService",
+            "OutOfService",
+            "Disabled",
+            "UnknownServiceState"
+          ],
+          "description": "The vehicle's current diagnostic service stte. This will be on of the following values: InService, OutOfService, Disabled or UnknownServiceState"
+        },
+        "vin": {
+          "type": "string",
+          "description": "The vehicle's VIN"
+        },
+        "odometerMiles": {
+          "type": "number",
+          "description": "The vehicle's odometer value in miles"
+        },
+        "engineHours": {
+          "type": "number",
+          "description": "The number of hours the vehicle's engine has been running"
+        }
+      }
+    },
+    "Odometer": {
+      "properties": {
+        "miles": {
+          "type": "number",
+          "description": "The distance traveled in miles"
+        },
+        "sourceName": {
+          "type": "string",
+          "description": "Identifies the specific device that supplied the odometer value"
+        },
+        "sourceType": {
+          "type": "string",
+          "enum": ["Accumulator", "Diagnostic"],
+          "description": "Identified the type of odometer value provided: Accumulator or Diagnostic"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Indicates when the odometer value was recorded"
+        }
+      }
+    },
+    "VIN": {
+      "properties": {
+        "vin": {
+          "type": "string",
+          "description": "The vehicle's VIN"
+        }
+      }
+    },
+    "Error": {
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
