@@ -27,6 +27,7 @@ router.get("/gps", EldCtrl.getGps);
 router.get("/hours_of_service", EldCtrl.getHoursOfService);
 router.get("/odometer", EldCtrl.getOdometer);
 router.get("/vin", EldCtrl.getVin);
+router.get("/chassisid", EldCtrl.getChassis);
 
 app.use("/api/eld", router);
 

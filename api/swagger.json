@@ -129,6 +129,26 @@
           }
         }
       }
+    },
+    "/chassisid": {
+      "get": {
+        "summary": "ChassisId",
+        "description": "This service provides the vehicle's chassis Id",
+        "responses": {
+          "200": {
+            "description": "Chassis Object",
+            "schema": {
+              "$ref": "#/definitions/Chassis"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -252,6 +272,14 @@
         "vin": {
           "type": "string",
           "description": "The vehicle's VIN"
+        }
+      }
+    },
+    "Chassis": {
+      "properties": {
+        "chassisId": {
+          "type": "string",
+          "description": "Just some random data"
         }
       }
     },

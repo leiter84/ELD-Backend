@@ -24,11 +24,16 @@ const getVin = (request, response) => {
   response.status(200).json(Data.vin);
 };
 
+const getChassis = (request, response) => {
+  response.status(200).json(Data.chassis);
+};
+
 module.exports = {
   getDiagnosticServiceState,
   getEsn,
   getGps,
   getHoursOfService,
   getOdometer,
-  getVin
+  getVin,
+  getChassis
 };

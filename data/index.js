@@ -40,11 +40,16 @@ const vin = {
   vin: "string"
 };
 
+const chassis = {
+  chassisId: "string"
+};
+
 module.exports = {
   diagnosticServiceState,
   esn,
   gps,
   hoursOfService,
   odometer,
-  vin
+  vin,
+  chassis
 };
