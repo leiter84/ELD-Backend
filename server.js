@@ -15,21 +15,27 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 // Passport Authentication Middleware
 passport.use(AuthConfig.strategy);
 app.use(passport.initialize());
-app.use(passport.authenticate("basic", { session: false }));
+app.use(passport.session());
+const digestAuth = passport.authenticate("digest", {
+  session: false
+});
 
-const router = express.Router();
-router.get(
-  "/diagnostic_service_state",
+// Routing
+app.get(
+  "/api/eld/diagnostic_service_state",
+  digestAuth,
   EldCtrl.getDiagnosticServiceState
 );
-router.get("/esn", EldCtrl.getEsn);
-router.get("/gps", EldCtrl.getGps);
-router.get("/hours_of_service", EldCtrl.getHoursOfService);
-router.get("/odometer", EldCtrl.getOdometer);
-router.get("/vin", EldCtrl.getVin);
-router.get("/chassisid", EldCtrl.getChassis);
-
-app.use("/api/eld", router);
+app.get("/api/eld/esn", digestAuth, EldCtrl.getEsn);
+app.get("/api/eld/gps", digestAuth, EldCtrl.getGps);
+app.get(
+  "/api/eld/hours_of_service",
+  digestAuth,
+  EldCtrl.getHoursOfService
+);
+app.get("/api/eld/odometer", digestAuth, EldCtrl.getOdometer);
+app.get("/api/eld/vin", digestAuth, EldCtrl.getVin);
+app.get("/api/eld/chassisId", digestAuth, EldCtrl.getChassis);
 
 // Error handling
 app.use((err, req, res, next) => {
