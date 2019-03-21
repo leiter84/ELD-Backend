@@ -9,13 +9,13 @@ const EldCtrl = require("./src/controllers/ELDCtrl");
 const app = express();
 app.set("json spaces", 4);
 
+// Swagger middleware
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
 // Passport Authentication Middleware
 passport.use(AuthConfig.strategy);
 app.use(passport.initialize());
-//app.use(passport.authenticate("digest", { session: false }));
-
-// Swagger middleware
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+app.use(passport.authenticate("basic", { session: false }));
 
 const router = express.Router();
 router.get(

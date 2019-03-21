@@ -9,6 +9,11 @@
   "schemes": ["https"],
   "basePath": "/api/eld",
   "produces": ["application/json"],
+  "securityDefinitions": {
+    "BasicAuth": {
+      "type": "basic"
+    }
+  },
   "paths": {
     "/diagnostic_service_state": {
       "get": {
@@ -21,11 +26,9 @@
               "$ref": "#/definitions/DiagnosticServiceState"
             }
           },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized access",
+            "type": "string"
           }
         }
       }
@@ -41,11 +44,9 @@
               "$ref": "#/definitions/ESN"
             }
           },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized access",
+            "type": "string"
           }
         }
       }
@@ -61,11 +62,9 @@
               "$ref": "#/definitions/GPS"
             }
           },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized access",
+            "type": "string"
           }
         }
       }
@@ -81,11 +80,9 @@
               "$ref": "#/definitions/HoursOfService"
             }
           },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized access",
+            "type": "string"
           }
         }
       }
@@ -101,11 +98,9 @@
               "$ref": "#/definitions/Odometer"
             }
           },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized access",
+            "type": "string"
           }
         }
       }
@@ -121,11 +116,9 @@
               "$ref": "#/definitions/VIN"
             }
           },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized access",
+            "type": "string"
           }
         }
       }
@@ -141,11 +134,9 @@
               "$ref": "#/definitions/Chassis"
             }
           },
-          "default": {
-            "description": "Unexpected error",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
+          "401": {
+            "description": "Unauthorized access",
+            "type": "string"
           }
         }
       }
@@ -280,20 +271,6 @@
         "chassisId": {
           "type": "string",
           "description": "Just some random data"
-        }
-      }
-    },
-    "Error": {
-      "properties": {
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "message": {
-          "type": "string"
-        },
-        "fields": {
-          "type": "string"
         }
       }
     }
