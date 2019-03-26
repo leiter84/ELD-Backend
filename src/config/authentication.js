@@ -12,6 +12,9 @@ const strategy = new passportHttp.DigestStrategy(
       return done(null, user, password);
     }
     return done(null, false);
+  },
+  function(error, done) {
+    return done(null, true);
   }
 );
 
