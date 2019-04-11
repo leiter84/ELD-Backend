@@ -4,7 +4,7 @@ const strategy = new passportHttp.DigestStrategy(
   { qop: "auth" },
   function(username, done) {
     if (username) {
-      const password = "password";
+      const password = "volvo";
       const user = {
         username,
         password
